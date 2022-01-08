@@ -63,7 +63,6 @@ class Autocomplete {
         >${item.text}</span>
       </li>
     `);
-
     this.list.innerHTML = html.join('');
   }
 
@@ -81,11 +80,25 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
+          // ### Task 5.3 ###
+      const optionItems = this.input.querySelectorAll('option');
+      
+      for (let i = 0; i < optionItems.length; i++) {
+        
+        if (optionItems[i].innerHTML.includes(text)) {
+          
+          this.textResult = optionItems[i].innerHTML;
+          this.valueResult = optionItems[i].getAttribute('value');
+          
+        }
+      }
+
     return [
       {
-        text: 'Чубакка',
-        value: '1'
+        text: this.textResult,
+        value: this.valueResult
       }
+    // ############################
     ];
   }
 }
