@@ -81,25 +81,34 @@ class Autocomplete {
       }
     */
           // ### Task 5.3 ###
-      const optionItems = this.input.querySelectorAll('option');
+
+      const optionItems = this.input.querySelectorAll('option');  // коллекция элементов списка выпадающего меню подстановок
       
+      let searchResult = []; // результирующий массив обектов (активные элементы выпадающего меню подстановок)
+      let searchElement;  // объект, внутри которого найден элемент, совпадающий с тем, что введено в поле <input>
+
       for (let i = 0; i < optionItems.length; i++) {
-        
+
+        let marker = false; // маркер, для фиксации состояния: "совпадающий элемент найден"
+
         if (optionItems[i].innerHTML.includes(text)) {
           
           this.textResult = optionItems[i].innerHTML;
           this.valueResult = optionItems[i].getAttribute('value');
           
-        }
-      }
-
-    return [
-      {
-        text: this.textResult,
-        value: this.valueResult
-      }
-    // ############################
-    ];
+          searchElement = {
+            text: this.textResult,
+            value: this.valueResult
+          };
+          marker = true;  // есть совпадение!
+        };
+          
+        if (marker) { // если найден совпадающий элемент, добавляем объект(содержащий этот элемент) в результирующий массив
+          searchResult.splice(i, 0, searchElement); // заполнение результирующего массива объектами
+        };
+      };
+      
+    return searchResult;  // вывод результата в выпадающее меню подстановок
   }
 }
 
